@@ -1,13 +1,13 @@
 var chessboard = [
     /*     a    b    c    d    e    f    g    h */
-    /*#1*/'5' ,'3' ,'4' ,'1' ,'6' ,'4' ,'3' ,'5' ,
+    /*#1*/'5' ,'3' ,'4' ,'6' ,'1' ,'4' ,'3' ,'5' ,
     /*#2*/'2' ,'2' ,'2' ,'2' ,'2' ,'2' ,'2' ,'2' ,
     /*#3*/'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,
     /*#4*/'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,
     /*#5*/'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,
     /*#6*/'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,'0' ,
     /*#7*/'-2','-2','-2','-2','-2','-2','-2','-2',
-    /*#8*/'-5','-3','-4','-1','-6','-4','-3','-5'
+    /*#8*/'-5','-3','-4','-6','-1','-4','-3','-5'
     ]
     var pole = "a1";
     var file = "./chessboard.png";
@@ -56,6 +56,32 @@ var chessboard = [
     
         chessboard[place] = chessboard[remove];
         chessboard[remove] = '0';
+    
+        displayChessboard();
+        return chessboard[place];
+    }
+
+    function spawn(fig, pos) {
+        let pola = {
+            a:0,
+            b:1,
+            c:2,
+            d:3,
+            e:4,
+            f:5,
+            g:6,
+            h:7
+        }
+    
+        let x = pola[ pos[0] ];
+        let y = pos[1] - 1;    
+        let place = x + y*8;
+    
+        //let litery = "abcdefgh";
+        //let liczby = "12345678";
+        //console.log(litery[x1] + liczby[y1],litery[x1] + liczby[y2]);
+    
+        chessboard[place] = fig;
     
         displayChessboard();
         return chessboard[place];
@@ -120,7 +146,12 @@ var chessboard = [
                 } else {
                     move2 = document.getElementById('input_text').innerHTML;
                     document.getElementById('input_text').innerHTML = 'Enter to type';
-                    move(move1,move2);
+                    let litery = "abcdefgh";
+                    if (litery.includes(move1[0])) {
+                        move(move1,move2);
+                    } else {
+
+                    }
                     move1 = '';
                     move2 = '';
                     type = 0;
