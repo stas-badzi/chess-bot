@@ -105,7 +105,8 @@ function keyPressed(event) {
                 document.getElementById('input_text').innerHTML = ''; 
             } else {
                 move2 = document.getElementById('input_text').innerHTML;
-                document.getElementById('input_text').innerHTML = 'Enter to type'; 
+                document.getElementById('input_text').innerHTML = 'Enter to type';
+                move(move1,move2);
                 type = false;
             }
         } else {
@@ -113,11 +114,15 @@ function keyPressed(event) {
         }
         
     } else if (type) {
-        document.getElementById('input_text').innerHTML += event.data;
+        if (event.key = 'Backspace') {
+            document.getElementById('input_text').innerHTML.slice(0, -1);
+        } else {
+            document.getElementById('input_text').innerHTML += event.data;
+        }
     }
 }
 
-addEventListener(onkeyup, keyPressed(Event))
+addEventListener(onkeyup, keyPressed(Event));
 
 /*zmienFigure(5);
 ustawPole(5);
