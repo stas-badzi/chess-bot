@@ -9,10 +9,6 @@
 
 }
 
-#chessboard div {
-    background-color: rgba(255, 0, 0, 0.2)
-}
-
 #a1 {
     position: absolute;
     background-image: none;
