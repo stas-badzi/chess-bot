@@ -21,7 +21,12 @@ function displayChessboard() {
 function zmienFigure(figura,white) {
     let figury = {
         0: 'empty',
-        1: 'a1'
+        1: 'king',
+        2: 'pawn',
+        3: 'knite',
+        4: 'bishop',
+        5: 'rook',
+        6: 'queen'
     }
     if (white) {
         file = "./pieces/" + figura + ".png";
