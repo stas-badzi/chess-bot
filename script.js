@@ -51,7 +51,7 @@ function ustawPole(numer) {
 
     let liczba2 = numer - (liczba1*8);
 
-    pole = litery[liczba1] + liczby[liczba2];
+    pole = litery[liczba2] + liczby[liczba1];
 
     return pole;
 }
