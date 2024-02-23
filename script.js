@@ -11,6 +11,9 @@ var chessboard = [
 ]
 var pole = "a1";
 var file = "./chessboard.png";
+var type = false;
+var move1 = "";
+var move2 = "";
 displayChessboard();
 
 function displayChessboard() {
@@ -93,6 +96,28 @@ function figura() {
     document.getElementById(pole).style.backgroundImage = "url(" + file + ")";
     return document.getElementById(pole).style.backgroundImage;
 }
+
+function keyPressed(event) {
+    if (event.key = 'Enter') {
+        if (type) {
+            if (move2.length = 0) {
+                move1 = document.getElementById('input_text').innerHTML;
+                document.getElementById('input_text').innerHTML = ''; 
+            } else {
+                move2 = document.getElementById('input_text').innerHTML;
+                document.getElementById('input_text').innerHTML = 'Enter to type'; 
+                type = false;
+            }
+        } else {
+            document.getElementById('input_text').innerHTML = '';
+        }
+        
+    } else if (type) {
+        document.getElementById('input_text').innerHTML += event.data;
+    }
+}
+
+addEventListener(onkeyup, keyPressed(Event))
 
 /*zmienFigure(5);
 ustawPole(5);
