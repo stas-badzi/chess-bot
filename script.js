@@ -69,4 +69,4 @@ zmienFigure(-6);
 ustawPole(62);
 figura();*/
 
-setInterval(displayChessboard(),1000);
+var display = setInterval(displayChessboard(),1000);
