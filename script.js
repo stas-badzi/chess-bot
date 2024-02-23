@@ -65,44 +65,44 @@ var chessboard = [
                         };
                     }
                     num = Math.abs(num);
-                    out.push(figures[num]);
+                    out += (figures[num]);
                 }
             }
             if (empty > 0) {
-                out.push(empty);
+                out += (empty);
                 empty = 0;
             }
-            out.push('/');
+            out += ('/');
         }
 
-        out.push(' ');
+        out += (' ');
         if (isWhiteMove) {
-            out.push('w');
+            out += ('w');
         } else {
-            out.push('b');
+            out += ('b');
         }
-        out.push(' ');
+        out += (' ');
         if (castles[0]) {
-            out.push('K');
+            out += ('K');
         }
         if (castles[1]) {
-            out.push('Q');
+            out += ('Q');
         }
         if (castles[2]) {
-            out.push('k');
+            out += ('k');
         }
         if (castles[3]) {
-            out.push('q');
+            out += ('q');
         }
         if (!castles[0] && !castles[1] && !castles[2] && !castles[3]) {
-            out.push('-');
+            out += ('-');
         }
-        out.push(' ');
-        out.push(enPassant);
-        out.push(' ')
-        out.push(noChangeMoves);
-        out.push(' ')
-        out.push(blackMoves);
+        out += (' ');
+        out += (enPassant);
+        out += (' ')
+        out += (noChangeMoves);
+        out += (' ')
+        out += (blackMoves);
 
         return out;
     }
