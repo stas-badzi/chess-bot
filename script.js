@@ -34,7 +34,7 @@ var chessboard = [
     function getFEN() {
         let empty = 0;
         let out = "";
-        for (let i = 0; i < 8; i++) {
+        for (let i = 7; i >= 0; i--) {
             for (let j = 0; j < 8; j++) {
                 if (chessboard[8*i + j] == '0') {
                     empty += 1;
