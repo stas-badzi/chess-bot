@@ -25,7 +25,25 @@ var chessboard = [
         }
     }
 
-    function findMoves(pos) {
+    function findMoves(position) {
+        let pos = position;
+
+        if (isNaN(position)) {
+            let pola = {
+                a:0,
+                b:1,
+                c:2,
+                d:3,
+                e:4,
+                f:5,
+                g:6,
+                h:7
+            }
+        
+            let x = pola[ position[0] ];
+            let y = position[1] - 1;    
+            pos = x + y*8;
+        }
         let white = chessboard[pos] > 0;
         let num = pos;
         let moves = [];
@@ -252,6 +270,8 @@ var chessboard = [
                     let litery = "abcdefgh";
                     if (litery.includes(move1[0])) {
                         move(move1,move2);
+                    } else if (move1 == 'moves') {
+                        console.log(findMoves(move2))
                     } else {
                         spawn(move1,move2);
                     }
