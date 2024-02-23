@@ -150,7 +150,7 @@ var chessboard = [
                     if (litery.includes(move1[0])) {
                         move(move1,move2);
                     } else {
-
+                        spawn(move1,move2);
                     }
                     move1 = '';
                     move2 = '';
