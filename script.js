@@ -1,8 +1,13 @@
 var pole = "a1";
-var image = "./chessboard.png";
+var file = "./chessboard.png";
 
-function zmienFigure(figura) {
-    image = "./" + figura + ".png";
+function zmienFigure(figura,white) {
+    if (white) {
+        file = "./" + figura + ".png";
+    } else {
+        file = "./" + figura + "b.png";
+    }
+    
 
     return figura;
 }
@@ -25,10 +30,10 @@ function figura() {
     return document.getElementById(pole).style.backgroundImage;
 }
 
-zmienFigure("rook");
+zmienFigure("rook",true);
 ustawPole(5);
 figura();
 
-zmienFigure("queen");
+zmienFigure("queen",false);
 ustawPole(62);
 figura();
