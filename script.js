@@ -34,7 +34,7 @@ var chessboard = [
         }
         if (chessboard[pos] == 1) {
             let x = Math.floor(pos/8);
-            let y = pos - (liczba1*8);
+            let y = pos - (x*8);
 
             if (x > 0) {
                 if (y > 0) {
