@@ -122,7 +122,7 @@ function keyPressed(event) {
     }
 }
 
-addEventListener(onkeyup, keyPressed(Event));
+document.addEventListener(onkeyup, keyPressed(Event));
 
 /*zmienFigure(5);
 ustawPole(5);
