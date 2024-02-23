@@ -20,7 +20,7 @@ function displayChessboard() {
 
 function zmienFigure(figura,white) {
     let figury = {
-        0: 'empty'
+        0: 'empty',
         1: 'a1'
     }
     if (white) {
