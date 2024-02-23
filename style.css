@@ -9,6 +9,24 @@
 
 }
 
+#type {
+    position: absolute;
+    top: 832px;
+    width: 762px;
+    height: 40px;
+    border: 10px solid black;
+    left: 239px;
+    background-color: lightgrey
+}
+
+#input_text {
+    font-family: math;
+    font-size: 30px;
+    left: 20px;
+    position: absolute;
+    bottom: -29px;
+}
+
 #a1 {
     position: absolute;
     background-image: none;
