@@ -43,7 +43,7 @@ function move(from, to) {
 
     let litery = "abcdefgh";
     let liczby = "12345678"
-    console.log(litery[x1],liczby[y1],' ',litery[x1],liczby[y2]);
+    console.log(litery[x1] + liczby[y1],litery[x1] + liczby[y2]);
 
     chessboard[place] = chessboard[remove];
     chessboard[remove] = '0';
@@ -100,4 +100,4 @@ zmienFigure(-6);
 ustawPole(62);
 figura();*/
 
-var display = setInterval(displayChessboard(),1000);
+var display = setInterval(displayChessboard,1000);
