@@ -27,6 +27,39 @@
     bottom: -29px;
 }
 
+#eval_bar {
+    width: 50px;
+    height: 774px;
+    position: absolute;
+    left: 1025px;
+    top: 40px;
+    border: 3px solid black;
+    text-align: center;
+    
+}
+
+#constant_bar {
+    height: 100%;
+    background-color: black;
+    width: 100%;
+}
+
+#variable_bar {
+    position: absolute;
+    height: 50%;
+    bottom: 0px;
+    background-color: white;
+    width: 100%;
+}
+
+#eval_text {
+    position: absolute;
+    bottom: 50%;
+    right: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+}
+
 #a1 {
     position: absolute;
     background-image: none;

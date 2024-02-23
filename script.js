@@ -9,13 +9,139 @@ var chessboard = [
     /*#7*/'-2','-2','-2','-2','-2','-2','-2','-2',
     /*#8*/'-5','-3','-4','-6','-1','-4','-3','-5'
     ]
+    var castles = [true,true,true,true];
+    var isWhiteMove = true;
+    var noChangeMoves = 0;
+    var blackMoves = 1;
+    var enPassant = '-';
     var pole = "a1";
     var file = "./chessboard.png";
     var type = 0;
     var move1 = "";
     var move2 = "";
+    var evaluation = 0;
     document.addEventListener("keydown", keyPressed);
     displayChessboard();
+
+    var loop = setInterval(tick,1);
+
+    function tick() {
+        document.getElementById("eval_text").innerHTML = evaluation;
+        document.getElementById("eval_text").style.bottom = 5*(10+evaluation)-3 + "%";
+        document.getElementById("variable_bar").style.height = 5*(10+evaluation) + "%";
+    }
+
+    function getFEN() {
+        let empty = 0;
+        let out = "";
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                if (chessboard[8*i + j] == '0') {
+                    empty += 1;
+                } else {
+                    if (empty > 0) {
+                        out.push(empty);
+                        empty = 0;
+                    }
+                    let num = chessboard[8*i + j];
+                    let figures = {};
+                    if (num > 0) {
+                        figures = {
+                            1:'K',
+                            2:'P',
+                            3:'N',
+                            4:'B',
+                            5:'R',
+                            6:'Q'
+                        };
+                    } else {
+                        figures = {
+                            1:'k',
+                            2:'p',
+                            3:'n',
+                            4:'b',
+                            5:'r',
+                            6:'q'
+                        };
+                    }
+                    num = Math.abs(num);
+                    out.push(figures[num]);
+                }
+            }
+            if (empty > 0) {
+                out.push(empty);
+                empty = 0;
+            }
+            out.push('/');
+        }
+
+        out.push(' ');
+        if (isWhiteMove) {
+            out.push('w');
+        } else {
+            out.push('b');
+        }
+        out.push(' ');
+        if (castles[0]) {
+            out.push('K');
+        }
+        if (castles[1]) {
+            out.push('Q');
+        }
+        if (castles[2]) {
+            out.push('k');
+        }
+        if (castles[3]) {
+            out.push('q');
+        }
+        if (!castles[0] && !castles[1] && !castles[2] && !castles[3]) {
+            out.push('-');
+        }
+        out.push(' ');
+        out.push(enPassant);
+        out.push(' ')
+        out.push(noChangeMoves);
+        out.push(' ')
+        out.push(blackMoves);
+
+        return out;
+    }
+
+    function getEvaluation() {
+        let engine = new Worker("./node_modules/stockfish/src/stockfish-nnue-16.js");
+        let evluations = [];
+
+        engine.onmessage = function (event) {
+            if (message.startsWith("info depth 10")) {
+                let multipvIndex = message.indexOf("multipv");
+                if (multipvIndex != -1) {
+                    let multipvString = message.slice(multipvIndex).split(" ")[1];
+                    let multipv = parseInt(multipvString);
+                    let scoreIndex = indexOf("score cp");
+                    if (scoreIndex != -1) {
+                        let scoreString = message.slice(scoreIndex).split(" ")[2];
+                        let this_evaluation = parseInt(scoreString)/100;
+                        this_evaluation = isWhiteMove ? this_evaluation : this_evaluation * -1;
+                        evaluations[multipv-1] = this_evaluation;
+                    } else {
+                        scoreIndex = message.indexOf("score mate");
+                        let scoreString = message.slice(scoreIndex).split(" ")[2];
+                        let evaluation = parseInt(scoreString);
+                        evaluation = Math.abs(evaluation);
+                        evaluations[multipv-1] = 'M' + this_evaluation;
+                    }
+                    let pvIndex = message.indexOf(" pv ")
+                    if (pvIndex != -1) {
+                        let pvString = message.slice(pvIndex + 4).split(" ");
+                        if (evaluations.length == 1) {
+                            console.log(evaluations);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     
     function displayChessboard() {
         for (let i = 0; i < chessboard.length; i++) {
@@ -244,7 +370,7 @@ var chessboard = [
     
     function keyPressed(event) {
         let button = event.key; 
-        console.log(button);
+        //console.log(button);
         if (button == 'Escape') {
             document.getElementById('input_text').innerHTML = 'Enter to type';
             move1 = '';
