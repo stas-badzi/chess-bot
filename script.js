@@ -21,7 +21,7 @@ function displayChessboard() {
 }
 
 function move(from, to) {
-    let liczby = {
+    let pola = {
         a:0,
         b:1,
         c:2,
@@ -32,16 +32,18 @@ function move(from, to) {
         h:7
     }
 
-    let x1 = liczby[ from[0] ];
+    let x1 = pola[ from[0] ];
     let y1 = from[1] - 1;
 
-    let x2 = liczby[ to[0] ];
+    let x2 = pola[ to[0] ];
     let y2 = to[1] - 1;
 
     let remove = x1 + y1*8;
     let place = x2 + y2*8;
 
-    console.log('from x: ', x1, ', y: ', y1, '\nto x: ', x2, ', y: ', y2);
+    let litery = "abcdefgh";
+    let liczby = "12345678"
+    console.log(litery[x1],liczby[y1],' ',litery[x1],liczby[y2]);
 
     chessboard[place] = chessboard[remove];
     chessboard[remove] = '0';
