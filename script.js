@@ -38,9 +38,9 @@ function zmienFigure(figura) {
         '-6': 'queenb'
     }
     
-        file = "./pieces/" + figury.figura + ".png";
+        file = "./pieces/" + figury[figura] + ".png";
 
-    return figura;
+    return file;
 }
 
 function ustawPole(numer) {
