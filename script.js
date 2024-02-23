@@ -40,7 +40,7 @@ var chessboard = [
                     empty += 1;
                 } else {
                     if (empty > 0) {
-                        out.push(empty);
+                        out += (empty);
                         empty = 0;
                     }
                     let num = chessboard[8*i + j];
