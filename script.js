@@ -17,7 +17,7 @@ function ustawPole(numer) {
 
     pole = litery[liczba1] + liczby[liczba2];
 
-    return litera2;
+    return pole;
 }
 
 function figura() {
