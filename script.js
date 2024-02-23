@@ -11,6 +11,7 @@ var chessboard = [
 ]
 var pole = "a1";
 var file = "./chessboard.png";
+displayChessboard();
 
 function displayChessboard() {
     for (let i = 0; i < chessboard.length; i++) {
@@ -42,12 +43,13 @@ function move(from, to) {
     let place = x2 + y2*8;
 
     let litery = "abcdefgh";
-    let liczby = "12345678"
-    console.log(litery[x1] + liczby[y1],litery[x1] + liczby[y2]);
+    let liczby = "12345678";
+    //console.log(litery[x1] + liczby[y1],litery[x1] + liczby[y2]);
 
     chessboard[place] = chessboard[remove];
     chessboard[remove] = '0';
 
+    displayChessboard();
     return chessboard[place];
 }
 
@@ -99,5 +101,3 @@ figura();
 zmienFigure(-6);
 ustawPole(62);
 figura();*/
-
-var display = setInterval(displayChessboard,1000);
