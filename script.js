@@ -24,6 +24,109 @@ var chessboard = [
             figura();
         }
     }
+
+    function findMoves(pos) {
+        let white = chessboard[pos] > 0;
+        let num = pos;
+        let moves = [];
+        if (chessboard[pos] == 0) {
+            return moves;
+        }
+        if (chessboard[pos] == 1) {
+            let x = Math.floor(pos/8);
+            let y = pos - (liczba1*8);
+
+            if (x > 0) {
+                if (y > 0) {
+                    num = pos - 9;
+                    if (white) {
+                        if (chessboard[num] <= 0) {
+                            moves.push(num);
+                        }
+                    } else if (chessboard[num] >= 0) {
+                        moves.push(num);
+                    }
+                }
+
+                num = pos - 8;
+                if (white) {
+                    if (chessboard[num] <= 0) {
+                        moves.push(num);
+                    }
+                } else if (chessboard[num] >= 0) {
+                    moves.push(num);
+                }
+
+                if (y < 7) {
+                    num = pos - 7;
+                    if (white) {
+                        if (chessboard[num] <= 0) {
+                            moves.push(num);
+                        }
+                    } else if (chessboard[num] >= 0) {
+                        moves.push(num);
+                    }
+                }
+            }
+
+            if (y > 0) {
+                num = pos - 1;
+                if (white) {
+                    if (chessboard[num] <= 0) {
+                        moves.push(num);
+                    }
+                } else if (chessboard[num] >= 0) {
+                    moves.push(num);
+                }
+            }
+
+            if (y < 7) {
+                num = pos + 1;
+                if (white) {
+                    if (chessboard[num] <= 0) {
+                        moves.push(num);
+                    }
+                } else if (chessboard[num] >= 0) {
+                    moves.push(num);
+                }
+            }
+
+            if (x < 7) {
+                if (y > 0) {
+                    num = pos + 7;
+                    if (white) {
+                        if (chessboard[num] <= 0) {
+                            moves.push(num);
+                        }
+                    } else if (chessboard[num] >= 0) {
+                        moves.push(num);
+                    }
+                }
+
+                num = pos + 8;
+                if (white) {
+                    if (chessboard[num] <= 0) {
+                        moves.push(num);
+                    }
+                } else if (chessboard[num] >= 0) {
+                    moves.push(num);
+                }
+
+                if (y < 7) {
+                    num = pos + 9;
+                    if (white) {
+                        if (chessboard[num] <= 0) {
+                            moves.push(num);
+                        }
+                    } else if (chessboard[num] >= 0) {
+                        moves.push(num);
+                    }
+                }
+            }
+
+            return moves;
+        }
+    }
     
     function move(from, to) {
         let pola = {
