@@ -105,6 +105,12 @@ var chessboard = [
     function keyPressed(event) {
         let button = event.key; 
         console.log(button);
+        if (button == 'Escape') {
+            document.getElementById('input_text').innerHTML = 'Enter to type';
+            move1 = '';
+            move2 = '';
+            type = 0;
+        }
         if (button == 'Enter') {
             if (type > 0) {
                 if (type == 1) {
