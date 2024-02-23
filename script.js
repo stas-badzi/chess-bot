@@ -16,9 +16,11 @@ function ustawPole(numer) {
     var litery = "abcdefgh";
     var liczby = "12345678"
 
-    var liczba1 = Math.floor(numer/9);
+    var liczba1 = Math.floor(numer/8);
 
-    var liczba2 = numer - liczba1;
+    var liczba2 = numer - (liczba1*8);
+
+    console.log(liczba1 + "," + liczba2)
 
     pole = litery[liczba1] + liczby[liczba2];
 
