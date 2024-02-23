@@ -41,8 +41,12 @@ function move(from, to) {
     let remove = x1 + y1*8;
     let place = x2 + y2*8;
 
+    console.log('from x: ', x1, ', y: ', y1, '\nto x: ', x2, ', y: ', y2);
+
     chessboard[place] = chessboard[remove];
     chessboard[remove] = '0';
+
+    return chessboard[place];
 }
 
 function zmienFigure(figura) {
