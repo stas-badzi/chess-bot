@@ -26,6 +26,8 @@ var chessboard = [
     var loop = setInterval(tick,1);
 
     function tick() {
+        let fen = getFEN();
+        getEvaluation(fen);
         document.getElementById("eval_text").innerHTML = evaluation;
         document.getElementById("eval_text").style.bottom = 5*(10+evaluation)-3 + "%";
         document.getElementById("variable_bar").style.height = 5*(10+evaluation) + "%";
@@ -75,7 +77,7 @@ var chessboard = [
             out += ('/');
         }
 
-        out += (' ');
+        out[out.length - 1] = (' ');
         if (isWhiteMove) {
             out += ('w');
         } else {
@@ -107,9 +109,9 @@ var chessboard = [
         return out;
     }
 
-    function getEvaluation() {
+    function getEvaluation(fen) {
         let engine = new Worker("./node_modules/stockfish/src/stockfish-nnue-16.js");
-        let evluations = [];
+        let evaluations = [];
 
         engine.onmessage = function (event) {
             if (message.startsWith("info depth 10")) {
@@ -134,12 +136,20 @@ var chessboard = [
                     if (pvIndex != -1) {
                         let pvString = message.slice(pvIndex + 4).split(" ");
                         if (evaluations.length == 1) {
+                            evaluation = evaluations[0];
                             console.log(evaluations);
                         }
                     }
                 }
             }
         }
+
+        engine.postMessage("uci");
+        engine.postMessage("isready");
+        engine.postMessage("ucinewgame");
+        engine.postMessage("setoption name multipv value 3");
+        engine.postMessage("position fen " + fen);
+        engine.postMessage("go depth 10");
     }
 
     
