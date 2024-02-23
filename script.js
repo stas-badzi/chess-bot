@@ -25,24 +25,41 @@ var chessboard = [
         }
     }
 
+    function toIntiger(str) {
+        let pola = {
+            a:0,
+            b:1,
+            c:2,
+            d:3,
+            e:4,
+            f:5,
+            g:6,
+            h:7
+        }
+        let x = pola[ str[0] ];
+        let y = str[1] - 1;    
+        let out = x + y*8;
+        return out;
+    }
+
+    function toNotation(int) {
+        let litery = "abcdefgh";
+        let liczby = "12345678"
+    
+        let x = Math.floor(int/8);
+    
+        let y = int - (x*8);
+    
+        out = litery[y] + liczby[x];
+    
+        return out;
+    }
+
     function findMoves(position) {
         let pos = position;
 
         if (isNaN(position)) {
-            let pola = {
-                a:0,
-                b:1,
-                c:2,
-                d:3,
-                e:4,
-                f:5,
-                g:6,
-                h:7
-            }
-        
-            let x = pola[ position[0] ];
-            let y = position[1] - 1;    
-            pos = x + y*8;
+            pos = toIntiger(position);
         }
         let white = chessboard[pos] > 0;
         let num = pos;
@@ -147,25 +164,15 @@ var chessboard = [
     }
     
     function move(from, to) {
-        let pola = {
-            a:0,
-            b:1,
-            c:2,
-            d:3,
-            e:4,
-            f:5,
-            g:6,
-            h:7
+        let remove = from;
+        if (isNaN(from)) {
+            remove = toIntiger(from);
         }
-    
-        let x1 = pola[ from[0] ];
-        let y1 = from[1] - 1;
-    
-        let x2 = pola[ to[0] ];
-        let y2 = to[1] - 1;
-    
-        let remove = x1 + y1*8;
-        let place = x2 + y2*8;
+
+        let place = to;
+        if (isNaN(to)) {
+            place = toIntiger(to);
+        }
     
         let litery = "abcdefgh";
         let liczby = "12345678";
@@ -183,20 +190,10 @@ var chessboard = [
     }
 
     function spawn(fig, pos) {
-        let pola = {
-            a:0,
-            b:1,
-            c:2,
-            d:3,
-            e:4,
-            f:5,
-            g:6,
-            h:7
+        let place = pos;
+        if (isNaN(pos)) {
+            place = toIntiger(pos);
         }
-    
-        let x = pola[ pos[0] ];
-        let y = pos[1] - 1;    
-        let place = x + y*8;
     
         //let litery = "abcdefgh";
         //let liczby = "12345678";
@@ -232,14 +229,10 @@ var chessboard = [
     }
     
     function ustawPole(numer) {
-        let litery = "abcdefgh";
-        let liczby = "12345678"
-    
-        let liczba1 = Math.floor(numer/8);
-    
-        let liczba2 = numer - (liczba1*8);
-    
-        pole = litery[liczba2] + liczby[liczba1];
+        pole = numer;
+        if (!isNaN(numer)) {
+            pole = toNotation(numer);
+        }
     
         return pole;
     }
