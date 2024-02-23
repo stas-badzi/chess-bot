@@ -266,7 +266,8 @@ var chessboard = [
             
         } else if (type > 0) {
             if (button == 'Backspace') {
-                document.getElementById('input_text').innerHTML.slice(0, -1);
+                let text = document.getElementById('input_text').innerHTML;
+                document.getElementById('input_text').innerHTML = text.substring(0,text.length - 1);
             } else if (button.length == 1) {
                 document.getElementById('input_text').innerHTML += button;
             }
