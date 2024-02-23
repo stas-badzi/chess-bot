@@ -20,6 +20,31 @@ function displayChessboard() {
     }
 }
 
+function move(from, to) {
+    let liczby = {
+        a:0,
+        b:1,
+        c:2,
+        d:3,
+        e:4,
+        f:5,
+        g:6,
+        h:7
+    }
+
+    let x1 = liczby[ from[0] ];
+    let y1 = from[1] - 1;
+
+    let x2 = liczby[ to[0] ];
+    let y2 = to[1] - 1;
+
+    let remove = x1 + y1*8;
+    let place = x2 + y2*8;
+
+    chessboard[place] = chessboard[remove];
+    chessboard[remove] = '0';
+}
+
 function zmienFigure(figura) {
     let figury = {
         '0': 'empty',
