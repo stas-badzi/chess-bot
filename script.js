@@ -3,9 +3,9 @@ var file = "./chessboard.png";
 
 function zmienFigure(figura,white) {
     if (white) {
-        file = "./" + figura + ".png";
+        file = "./pieces/" + figura + ".png";
     } else {
-        file = "./" + figura + "b.png";
+        file = "./pieces/" + figura + "b.png";
     }
     
 
