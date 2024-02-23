@@ -14,11 +14,13 @@ var file = "./chessboard.png";
 
 function displayChessboard() {
     for (let i = 0; i < chessboard.length; i++) {
-        zmienFigure()
+        zmienFigure(chessboard[i]);
+        ustawPole(i);
+        figura();
     }
 }
 
-function zmienFigure(figura,white) {
+function zmienFigure(figura) {
     let figury = {
         '0': 'empty',
         '1': 'king',
@@ -59,12 +61,12 @@ function figura() {
     return document.getElementById(pole).style.backgroundImage;
 }
 
-zmienFigure(5);
+/*zmienFigure(5);
 ustawPole(5);
 figura();
 
 zmienFigure(-6);
 ustawPole(62);
-figura();
+figura();*/
 
 setInterval(displayChessboard(),1000);
