@@ -20,20 +20,23 @@ function displayChessboard() {
 
 function zmienFigure(figura,white) {
     let figury = {
-        0: 'empty',
-        1: 'king',
-        2: 'pawn',
-        3: 'knite',
-        4: 'bishop',
-        5: 'rook',
-        6: 'queen'
-    }
-    if (white) {
-        file = "./pieces/" + figura + ".png";
-    } else {
-        file = "./pieces/" + figura + "b.png";
+        '0': 'empty',
+        '1': 'king',
+        '2': 'pawn',
+        '3': 'knite',
+        '4': 'bishop',
+        '5': 'rook',
+        '6': 'queen',
+
+        '-1': 'kingb',
+        '-2': 'pawnb',
+        '-3': 'kniteb',
+        '-4': 'bishopb',
+        '-5': 'rookb',
+        '-6': 'queenb'
     }
     
+        file = "./pieces/" + figury.figura + ".png";
 
     return figura;
 }
@@ -56,11 +59,11 @@ function figura() {
     return document.getElementById(pole).style.backgroundImage;
 }
 
-zmienFigure("rook",true);
+zmienFigure(5);
 ustawPole(5);
 figura();
 
-zmienFigure("queen",false);
+zmienFigure(-6);
 ustawPole(62);
 figura();
 
