@@ -25,6 +25,24 @@ var chessboard = [
 
     var loop = setInterval(tick,1);
 
+    setup();
+
+
+
+
+    // **********************************************************
+
+    function setup() {
+        let squares = document.getElementsByClassName("square");
+        for (let i = 0; i < squares.length; i++) {
+            squares[i].addEventListener("mousedown",clickedSquare);
+        }
+    }
+
+    function clickedSquare(event) {
+        console.log("i");
+    }
+
     function tick() {
         let fen = getFEN();
         getEvaluation(fen);
