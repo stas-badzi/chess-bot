@@ -1,0 +1,24 @@
+{
+  "name": "chess-bot",
+  "version": "0.0.1",
+  "description": "a chess ai trining",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"testowanie!!!\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stas-badzi/chess-bot.git"
+  },
+  "keywords": [
+    "chess",
+    "ai",
+    "bot"
+  ],
+  "author": "stas badziak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stas-badzi/chess-bot/issues"
+  },
+  "homepage": "https://github.com/stas-badzi/chess-bot#readme"
+}
