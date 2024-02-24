@@ -45,7 +45,8 @@ var chessboard = [
 
     function tick() {
         let fen = getFEN();
-        //getEvaluation(fen);
+        //console.log(fen);
+        getEvaluation(fen);
         document.getElementById("eval_text").innerHTML = evaluation;
         document.getElementById("eval_text").style.bottom = 5*(10+evaluation)-3 + "%";
         document.getElementById("variable_bar").style.height = 5*(10+evaluation) + "%";
