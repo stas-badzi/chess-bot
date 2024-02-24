@@ -35,12 +35,12 @@ var chessboard = [
     function setup() {
         let squares = document.getElementsByClassName("square");
         for (let i = 0; i < squares.length; i++) {
-            squares[i].addEventListener("mousedown",clickedSquare(i));
+            squares[i].addEventListener("mousedown",clickedSquare);
         }
     }
 
-    function clickedSquare(number) {
-        console.log("clicked:",number);
+    function clickedSquare(event) {
+        console.log("clicked:",event.pageX,event.pageY);
     }
 
     function tick() {
