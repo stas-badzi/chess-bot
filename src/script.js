@@ -123,9 +123,9 @@ var chessboard = [
 
     function tick() {
         let fen = getFEN();
-        getEval(fen);
+        //getEval(fen);
         //console.log(fen);
-        //getEvaluation(fen);
+        getEvaluation(fen);
         document.getElementById("eval_text").innerHTML = evaluation;
         document.getElementById("eval_text").style.bottom = 5*(10+evaluation)-3 + "%";
         document.getElementById("variable_bar").style.height = 5*(10+evaluation) + "%";
@@ -233,7 +233,7 @@ var chessboard = [
     }
 
     function getEvaluation(fen) {
-        let engine = new Worker("./node_modules/stockfish/src/stockfish-nnue-16.js");
+        let engine = new Worker("./stockfish.js");
         let evaluations = [];
 
         engine.onmessage = function (event) {

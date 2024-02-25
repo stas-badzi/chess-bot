@@ -37,9 +37,14 @@ function decode(input) {
 
 var path = require("path");
 var { Worker } = require("node:worker_threads");
-var stockfish = require("stockfish");
+//var stockfish = require("stockfish.js");
 
-function getEvaluation(fen) {
+var fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/w KQkq - 0 1";
+var evaluation = 0.0;
+
+//var tick = setInterval(getEvaluation,10000);
+
+function getEvaluation() {
     /*
     stockfish.ready((work) => {
         let evaluations = [];
@@ -90,9 +95,35 @@ function getEvaluation(fen) {
     console.log("Starting stockfish...");
     let evaluations = [];
 
+    engine.postMessage({
+        cmd: "run",
+        arg: "uci"
+    });
+    engine.postMessage({
+        cmd: "run",
+        arg: "isready"
+    });
+    engine.postMessage({
+        cmd: "run",
+        arg: "ucinewgame"
+    });
+    engine.postMessage({
+        cmd: "run",
+        arg: "setoption name multipv value 3"
+    });
+    let fentext = "position fen " + fen;
+    engine.postMessage({
+        cmd: "run",
+        arg: fentext
+    });
+    engine.postMessage({
+        cmd: "run",
+        arg: "eval depth 10"
+    });
+
     engine.onmessage = (e) => {
-        let message = e.data;
-        console.log("parsing data");
+        let message = e.data ? e.data : e;
+        console.log("parsing data:",e);
         if (message.startsWith("info depth 10")) {
             let multipvIndex = message.indexOf("multipv");
             if (multipvIndex != -1) {
@@ -115,40 +146,13 @@ function getEvaluation(fen) {
                 if (pvIndex != -1) {
                     let pvString = message.slice(pvIndex + 4).split(" ");
                     if (evaluations.length == 1) {
-                        let evaluation = evaluations[0];
+                        evaluation = evaluations[0];
                         console.log(evaluations);
-                        return evaluation;
                     }
                 }
             }
         }
     }
-
-    engine.postMessage({
-        cmd: "custom",
-        function: "uci"
-    });
-    engine.postMessage({
-        cmd: "custom",
-        function: "isready"
-    });
-    engine.postMessage({
-        cmd: "custom",
-        function: "ucinewgame"
-    });
-    engine.postMessage({
-        cmd: "custom",
-        function: "setoption name multipv value 3"
-    });
-    let fentext = "position fen " + fen;
-    engine.postMessage({
-        cmd: "custom",
-        function: fentext
-    });
-    engine.postMessage({
-        cmd: "custom",
-        function: "eval depth 10"
-    });
         //*/
     
 }
@@ -159,8 +163,7 @@ var router = express.Router();
 
 router.get("/stockfish/:dynamic",function(req,res){
     const { dynamic } = req.params;
-    let fen = decode(dynamic);
-    let evaluation = getEvaluation(fen);
+    fen = decode(dynamic);
     console.log(evaluation);
     res.status(200).json({
         'evaluation': evaluation
