@@ -233,10 +233,13 @@ var chessboard = [
     }
 
     function getEvaluation(fen) {
-        let engine = new Worker("./stockfish.js");
+        console.log("starting stockfish...")
+        let engine = new Worker("./src/stockfish.js");
         let evaluations = [];
 
-        engine.onmessage = function (event) {
+        engine.onmessage = function (e) {
+            let message = e.data ? e.data : e;
+            console.log("parsing:",message);
             if (message.startsWith("info depth 10")) {
                 let multipvIndex = message.indexOf("multipv");
                 if (multipvIndex != -1) {
