@@ -122,10 +122,9 @@ var chessboard = [
     }
 
     function tick() {
-        let fen = getFEN();
         //getEval(fen);
         //console.log(fen);
-        getEvaluation(fen);
+        //getEvaluation(fen);
         document.getElementById("eval_text").innerHTML = evaluation;
         document.getElementById("eval_text").style.bottom = 5*(10+evaluation)-3 + "%";
         document.getElementById("variable_bar").style.height = 5*(10+evaluation) + "%";
@@ -172,10 +171,12 @@ var chessboard = [
                 out += (empty);
                 empty = 0;
             }
-            out += ('/');
+            if (i > 0) {
+                out += ('/');
+            }
         }
 
-        out[out.length - 1] = (' ');
+        out += ' ';
         if (isWhiteMove) {
             out += ('w');
         } else {
@@ -232,52 +233,6 @@ var chessboard = [
         return evaluation;
     }
 
-    function getEvaluation(fen) {
-        console.log("starting stockfish...")
-        let engine = new Worker("./src/stockfish.js");
-        let evaluations = [];
-
-        engine.onmessage = function (e) {
-            let message = e.data ? e.data : e;
-            console.log("parsing:",message);
-            if (message.startsWith("info depth 10")) {
-                let multipvIndex = message.indexOf("multipv");
-                if (multipvIndex != -1) {
-                    let multipvString = message.slice(multipvIndex).split(" ")[1];
-                    let multipv = parseInt(multipvString);
-                    let scoreIndex = indexOf("score cp");
-                    if (scoreIndex != -1) {
-                        let scoreString = message.slice(scoreIndex).split(" ")[2];
-                        let this_evaluation = parseInt(scoreString)/100;
-                        this_evaluation = isWhiteMove ? this_evaluation : this_evaluation * -1;
-                        evaluations[multipv-1] = this_evaluation;
-                    } else {
-                        scoreIndex = message.indexOf("score mate");
-                        let scoreString = message.slice(scoreIndex).split(" ")[2];
-                        let evaluation = parseInt(scoreString);
-                        evaluation = Math.abs(evaluation);
-                        evaluations[multipv-1] = 'M' + this_evaluation;
-                    }
-                    let pvIndex = message.indexOf(" pv ")
-                    if (pvIndex != -1) {
-                        let pvString = message.slice(pvIndex + 4).split(" ");
-                        if (evaluations.length == 1) {
-                            evaluation = evaluations[0];
-                            console.log(evaluations);
-                        }
-                    }
-                }
-            }
-        }
-
-        engine.postMessage("uci");
-        engine.postMessage("isready");
-        engine.postMessage("ucinewgame");
-        engine.postMessage("setoption name multipv value 3");
-        engine.postMessage("position fen " + fen);
-        engine.postMessage("go depth 10");
-    }
-
     
     function displayChessboard() {
         for (let i = 0; i < chessboard.length; i++) {
@@ -285,6 +240,8 @@ var chessboard = [
             ustawPole(i);
             figura();
         }
+        let fen = getFEN();
+        getEval(fen);
     }
 
     function toIntiger(str) {
@@ -329,7 +286,7 @@ var chessboard = [
         if (chessboard[pos] == 0) {
             return moves;
         }
-        if (chessboard[pos] == 1) {
+        if (Math.abs(chessboard[pos]) == 1) {
             let x = Math.floor(pos/8);
             let y = pos - (x*8);
 
@@ -436,8 +393,8 @@ var chessboard = [
             place = toIntiger(to);
         }
     
-        let litery = "abcdefgh";
-        let liczby = "12345678";
+        //let litery = "abcdefgh";
+        //let liczby = "12345678";
         //console.log(litery[x1] + liczby[y1],litery[x1] + liczby[y2]);
 
         if (chessboard[remove] == '0') {

@@ -1,3 +1,9 @@
+process.title = 'chessbot';
+
+var fs = require("node:fs");
+fs.writeFileSync("./node_modules/stockfishget-linux/src/input.in","0");
+fs.writeFileSync("./node_modules/stockfishget-linux/src/output.out","0");
+
 var express = require("express");
 var path = require("path");
 
